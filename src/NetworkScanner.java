@@ -15,6 +15,12 @@ public class NetworkScanner
         System.out.println("End port: ");
         int endPort = scan.nextInt();
 
+        if (startPort < 1 || endPort > 65535 || startPort > endPort)
+        {
+            System.out.println("Invalid port range.");
+            System.exit(0);
+        }
+
         System.out.println("Starting scan...\n");
 
         long startTime = System.currentTimeMillis();
