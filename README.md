@@ -1,47 +1,55 @@
 # Java Network Scanner
 
-A simple network reconnaissance tool built in Java.  
-It scans a local subnet and checks for active hosts and open ports.
-
----
+A Java-based network scanner that discovers active hosts, scans TCP ports, identifies common services, and exports results to a report file.
 
 ## Features
 
-- Subnet scanning (example: 172.31.11.x)
+- Subnet scanning (for example, `172.31.11.x`)
 - Host discovery using reachability checks
-- TCP port scanning
-- Detects common service ports (SSH, HTTP, HTTPS, etc.)
+- Configurable TCP port ranges
+- Common service identification (SSH, HTTP, HTTPS, FTP, SMTP, RDP, and others)
+- Scan report generation with timestamps
+- Input validation for subnet and port ranges
 
----
+## Project Structure
+src/
+├── NetworkScanner.java      # Main application logic and user interaction
+├── HostChecker.java         # Host discovery and reachability checks
+├── PortScanner.java         # Port scanning and service detection
+└── ReportWriter.java        # Report file creation and export
+text## How It Works
 
-## How it works
-
-1. Enter a subnet (example: 172.31.11)
-2. The program scans IP addresses in the range .1 to .50
-3. For each active host, it scans selected TCP ports
-4. Displays open ports in the console
-
----
+1. Enter a subnet (for example, `172.31.11`).
+2. Choose a start and end port.
+3. The scanner checks hosts in the subnet range **.1 – .50**.
+4. For each active host, the scanner attempts TCP connections across the selected port range.
+5. Open ports and identified services are displayed in the console and saved to a report file.
 
 ## Example Output
 
+**Console Output**  
+*(Screenshot or example console log would go here)*
 
-Host UP: 172.31.11.1
-OPEN PORT: 80
-OPEN PORT: 443
-
-
----
+**Generated Report**  
+*(Example report file content would go here)*
 
 ## Technologies Used
 
 - Java
-- Sockets (java.net.Socket)
-- InetAddress API
-- Basic multithreaded concepts (in later versions)
+- `java.net.Socket` for TCP connections
+- `InetAddress` for host discovery
+- `FileWriter` for report generation
+- Object-oriented design with multiple classes
 
----
+## What I Learned
+
+- TCP socket programming in Java
+- Host discovery and network scanning concepts
+- Exception handling and input validation
+- File I/O and report generation
+- Organizing larger Java programs into multiple classes
 
 ## Disclaimer
 
-This tool is for educational purposes only and should only be used on networks you own or have permission to scan.
+**Educational use only**  
+This tool is intended for educational purposes and should only be used on networks you own or are a
