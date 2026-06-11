@@ -40,6 +40,16 @@ public class NetworkScanner
             }
         }
 
+        long endTime = System.currentTimeMillis();
+        long duration = endTime - startTime;
+
+        report.append("\n==================================\n");
+        report.append("SCAN COMPLETE\n");
+        report.append("Hosts found: ").append(hostsFound).append("\n");
+        report.append("Open ports found: ").append(portsFound).append("\n");
+        report.append("Time taken: ").append(duration).append(" ms\n");
+        report.append("==================================\n");
+
         try
         {
             FileWriter writer = new FileWriter("scan-results.txt");
@@ -54,10 +64,6 @@ public class NetworkScanner
         {
             System.out.println("Error writing report file.");
         }
-
-        long endTime = System.currentTimeMillis();
-
-        long duration = endTime - startTime;
 
         System.out.println("\n==================================");
         System.out.println("SCAN COMPLETE");
