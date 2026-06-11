@@ -11,7 +11,12 @@ public class NetworkScanner
         System.out.println("Enter subnet:");
         String subnet = scan.next();
 
-        System.out.println("Scanning network...\n");
+        System.out.println("Starting scan...\n");
+
+        long startTime = System.currentTimeMillis();
+
+        int hostsFound = 0;
+        int portsFound = 0;
 
         for (int i = 1; i <= 50; i++)
         {
@@ -19,13 +24,26 @@ public class NetworkScanner
 
             if (isAlive(ip))
             {
-                System.out.println("\nHost UP: " + ip);
-                scanPorts(ip);
+                hostsFound++;
+
+                System.out.println("\n[HOST UP] " + ip);
+                int found = scanPorts(ip);
+                portsFound += found;
             }
         }
+
+        long endTime = System.currentTimeMillis();
+
+        long duration = endTime - startTime;
+
+        System.out.println("\n==================================");
+        System.out.println("SCAN COMPLETE");
+        System.out.println("Hosts found: " + hostsFound);
+        System.out.println("Open ports found: " + portsFound);
+        System.out.println("Time taken: " + duration + " ms");
+        System.out.println("==================================");
     }
 
-    // this will check if the host exists
     public static boolean isAlive(String ip)
     {
         try
@@ -40,16 +58,21 @@ public class NetworkScanner
     }
 
     // this will then scan the ports on host
-    public static void scanPorts(String ip)
+    public static int scanPorts(String ip)
     {
         int[] ports = {22, 80, 443, 21, 25, 3389, 8080};
+
+        int count = 0;
 
         for (int port : ports)
         {
             try
             {
                 Socket socket = new Socket(ip, port);
-                System.out.println("OPEN PORT: " + port);
+
+                System.out.println("  [+] OPEN PORT: " + port);
+                count++;
+
                 socket.close();
             }
             catch (Exception e)
@@ -57,5 +80,7 @@ public class NetworkScanner
                 // closed port
             }
         }
+
+        return count;
     }
 }
