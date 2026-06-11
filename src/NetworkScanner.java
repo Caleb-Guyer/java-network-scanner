@@ -1,4 +1,5 @@
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.Scanner;
 
@@ -68,7 +69,9 @@ public class NetworkScanner
         {
             try
             {
-                Socket socket = new Socket(ip, port);
+                Socket socket = new Socket();
+
+                socket.connect(new InetSocketAddress(ip, port), 200);
 
                 System.out.println("  [+] OPEN PORT: " + port);
                 count++;
