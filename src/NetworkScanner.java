@@ -1,8 +1,3 @@
-import java.io.IOException;
-import java.io.FileWriter;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.net.Socket;
 import java.util.Scanner;
 
 public class NetworkScanner
@@ -50,20 +45,7 @@ public class NetworkScanner
         report.append("Time taken: ").append(duration).append(" ms\n");
         report.append("==================================\n");
 
-        try
-        {
-            FileWriter writer = new FileWriter("scan-results.txt");
-
-            writer.write(report.toString());
-
-            writer.close();
-
-            System.out.println("\nResults saved to scan-results.txt");
-        }
-        catch (IOException e)
-        {
-            System.out.println("Error writing report file.");
-        }
+        ReportWriter.saveReport(report.toString());
 
         System.out.println("\n==================================");
         System.out.println("SCAN COMPLETE");
