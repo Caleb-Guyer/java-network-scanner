@@ -27,7 +27,7 @@ public class NetworkScanner
         {
             String ip = subnet + "." + i;
 
-            if (isAlive(ip))
+            if (HostChecker.isAlive(ip))
             {
                 hostsFound++;
 
@@ -73,20 +73,6 @@ public class NetworkScanner
         System.out.println("==================================");
     }
 
-    public static boolean isAlive(String ip)
-    {
-        try
-        {
-            InetAddress address = InetAddress.getByName(ip);
-            return address.isReachable(200);
-        }
-        catch (Exception e)
-        {
-            return false;
-        }
-    }
-
-    // this will then scan the ports on host
     public static int scanPorts(String ip, StringBuilder report)
     {
         int[] ports = {22, 80, 443, 21, 25, 3389, 8080};
