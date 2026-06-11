@@ -1,3 +1,5 @@
+import java.io.IOException;
+import java.io.FileWriter;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -19,6 +21,8 @@ public class NetworkScanner
         int hostsFound = 0;
         int portsFound = 0;
 
+        StringBuilder report = new StringBuilder();
+
         for (int i = 1; i <= 50; i++)
         {
             String ip = subnet + "." + i;
@@ -28,9 +32,27 @@ public class NetworkScanner
                 hostsFound++;
 
                 System.out.println("\n[HOST UP] " + ip);
-                int found = scanPorts(ip);
+
+                report.append("\n[HOST UP] ").append(ip).append("\n");
+
+                int found = scanPorts(ip, report);
                 portsFound += found;
             }
+        }
+
+        try
+        {
+            FileWriter writer = new FileWriter("scan-results.txt");
+
+            writer.write(report.toString());
+
+            writer.close();
+
+            System.out.println("\nResults saved to scan-results.txt");
+        }
+        catch (IOException e)
+        {
+            System.out.println("Error writing report file.");
         }
 
         long endTime = System.currentTimeMillis();
@@ -59,7 +81,7 @@ public class NetworkScanner
     }
 
     // this will then scan the ports on host
-    public static int scanPorts(String ip)
+    public static int scanPorts(String ip, StringBuilder report)
     {
         int[] ports = {22, 80, 443, 21, 25, 3389, 8080};
 
@@ -75,6 +97,10 @@ public class NetworkScanner
 
                 System.out.println("  [+] OPEN PORT: " + port);
                 count++;
+
+                report.append("  [+] OPEN PORT: ")
+                      .append(port)
+                      .append("\n");
 
                 socket.close();
             }
