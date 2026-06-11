@@ -1,13 +1,27 @@
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+import java.time.LocalDateTime;
 
 public class NetworkScanner
 {
     public static void main(String[] args)
     {
+        System.out.println("=== Network Scanner v1.0 ===\n");
         Scanner scan = new Scanner(System.in);
 
-        System.out.println("Enter subnet:");
+        LocalDateTime now = LocalDateTime.now();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDate = now.format(formatter);
+
+        System.out.println("Enter subnet: ");
         String subnet = scan.next();
+
+        if (!subnet.matches("\\d+\\.\\d+\\.\\d+"))
+        {
+            System.out.println("Invalid subnet format.");
+            System.exit(0);
+        }
 
         System.out.println("Start port: ");
         int startPort = scan.nextInt();
@@ -29,6 +43,18 @@ public class NetworkScanner
         int portsFound = 0;
 
         StringBuilder report = new StringBuilder();
+
+        report.append("Network scan report\n");
+        report.append("======================\n\n");
+        report.append("Scan Date: ")
+                        .append(formattedDate)
+                        .append("\n\n");
+        report.append("Subnet: ").append(subnet).append("\n");
+        report.append("Port Range: ")
+                .append(startPort)
+                .append("-")
+                .append(endPort)
+                .append("\n\n");
 
         for (int i = 1; i <= 50; i++)
         {
