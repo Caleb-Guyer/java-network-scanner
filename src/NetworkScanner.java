@@ -9,6 +9,12 @@ public class NetworkScanner
         System.out.println("Enter subnet:");
         String subnet = scan.next();
 
+        System.out.println("Start port: ");
+        int startPort = scan.nextInt();
+
+        System.out.println("End port: ");
+        int endPort = scan.nextInt();
+
         System.out.println("Starting scan...\n");
 
         long startTime = System.currentTimeMillis();
@@ -30,7 +36,7 @@ public class NetworkScanner
 
                 report.append("\n[HOST UP] ").append(ip).append("\n");
 
-                int found = PortScanner.scanPorts(ip, report);
+                int found = PortScanner.scanPorts(ip, report, startPort, endPort);
                 portsFound += found;
             }
         }
